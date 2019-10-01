@@ -5,7 +5,7 @@
 \usepackage{amsfonts, amsmath, amssymb, bm}
 \usepackage{caption}
 \usepackage{tikz-cd}
-\usepackage{cite}
+%\usepackage{cite}
 \renewcommand{\r}{\mathbb{R}}
 \newcommand{\ra}{\rightarrow}
 \renewcommand{\hat}{\widehat}
@@ -72,7 +72,7 @@ It mentions two different generalizations of Euclidean geometry, and shows that 
     \[
       \phi_{\alpha \beta} := \phi_\beta \circ \phi^{-1} _\alpha |_{\phi_{\alpha}(U_\alpha \cap U_\beta)} : \phi_\alpha(U_\alpha \cap U_\beta) \to \phi_\beta(U_\alpha \cap U_\beta)
     \]
-    The manifold is said to be \emph{smoot} if all its transition maps are smooth (namely $C^\infty$).
+    The manifold is said to be \emph{smooth} if all its transition maps are smooth (namely $C^\infty$).
   \end{definition}
   \begin{center}
     \includegraphics[width=0.4\textwidth]{charts.png}
@@ -127,7 +127,7 @@ It mentions two different generalizations of Euclidean geometry, and shows that 
   The metric also allows one to define lengths of curves:
   Given a curve $\gamma : [0,1] \to M$, one defines the length of $\gamma$ via a familiar formula 
   \[
-    \ell(\gamma) := \int_0 ^1 \sqrt{g(\gamma'(t), \gamma'(t))} \mathrm{d} t.
+    \ell(\gamma) := \int_0 ^1 \sqrt{g(\gamma'(t), \gamma'(t))} \text{d} t.
   \]
   Given two points $a,b \in M$, it is natural to ask for a curve $\gamma$ with $\gamma(0)=a$, $\gamma(1)=b$ with $\ell(\gamma)$ minimal.
   Such a curve is called a \emph{geodesic}.
@@ -137,18 +137,19 @@ It mentions two different generalizations of Euclidean geometry, and shows that 
     \nabla_{\dot{\gamma}} \dot{\gamma} = 0,
   \]
   where the connection $\nabla$ which appears in the equation is the Levi-Civita connection of the Riemannian metric.
+  Existence and uniqueness of such a curve follows from the Picard-Lindel\"{o}f theorem.
 \end{frame}
 
 \begin{frame}{Euclidean space revisited}
   While Euclidean space possesses its inner product structure, this is far from the only feature one might seek to generalize.
 
-  Let $G:=\mathrm{Euc}(n)$ be the \emph{Euclidean group}: the group of isometries of $n$-dimensional Euclidean space $\EE^n$.
+  Let $G:=\text{Euc}(n)$ be the \emph{Euclidean group}: the group of isometries of $n$-dimensional Euclidean space $\EE^n$.
 
   It is well-known that such isometries are either translations, rotations, or reflections.
 
   Let $H$ be the stabilizer of a point in Euclidean space. 
 
-  Then $G/H \cong \EE^n$. (In fact, the Euclidean group $\mathrm{Euc}(n)$ is a semidirect product of $\mathrm{O}(n)$ with the group of translations, which is in turn isomorphic to $\RR^n$.)
+  Then $G/H \cong \EE^n$. (In fact, the Euclidean group $\text{Euc}(n)$ is a semidirect product of $\text{O}(n)$ with the group of translations, which is in turn isomorphic to $\RR^n$.)
   
   Of note here is that $G$ is in fact a Lie group, and $H\subset G$ is a Lie subgroup.
 
@@ -184,7 +185,7 @@ It mentions two different generalizations of Euclidean geometry, and shows that 
       M \& {} \\
     \end{tikzcd}
   \]
-  Additionally, the Klein geometry comes equipped with the Maurer-Cartan form $\omega : G \to \mathfrak{g}$.
+  Additionally, the Klein geometry comes equipped with the Maurer-Cartan form $\omega : TG \to \mathfrak{g}$.
   This trivializes the tangent bundle of the Lie group $G$, i.e. 
   \[
     \omega : TG \overset{\cong}{\longrightarrow} G \times \mathfrak{g}.
@@ -207,6 +208,35 @@ It mentions two different generalizations of Euclidean geometry, and shows that 
   \[
     \gamma : \RR \to G, \gamma(t) := \exp(tX).
   \]
+\end{frame}
+
+\begin{frame}{Cartan geometry}
+  We have thus far seen two different ways that Euclidean geometry could be generalized, one by generalizing the metric structure and the other generalizing the coset space of a Lie subgroup structure.
+  It was the ideas of \'{E}lie Cartan that brought these two different ideas under a unified framework, which he called an \emph{\'{e}space g\'{e}n\'{e}ralis\'{e}}.
+  Today these are known as \emph{Cartan geometries}
+  \begin{definition}[Cartan geometry]
+    A \emph{Cartan geometry} of type $(G,H)$ is a principal $H$-bundle $\mathcal{G} \to M$ together with a $\mathfrak{g}$-valued one-form $\omega : T\mathcal{G} \to \mathfrak{g}$, called the \emph{Cartan connection} which further satisfies the following
+    \begin{itemize}
+      \item $(r^h)^* \omega = \text{Ad}(h^{-1}) \circ \omega$ for all $h\in H$
+      \item $\omega(\zeta_X(u)) = X$ for each $X\in \mathfrak{h}$
+      \item $\omega(u) : T_u \mathcal{G} \to \mathfrak{g}$ is a linear isomorphism for all $u\in\mathcal{G}$.
+    \end{itemize}
+  \end{definition}
+\end{frame}
+
+\begin{frame}{Cartan geometry (cont.)}
+  The Cartan connection generalizes the Maurer-Cartan form.
+  Indeed, the Klein geometry $G/H$ is termed the \emph{flat model} for Cartan geometries of type $(G,H)$.
+  The \emph{curvature} of a Cartan geometry is defined to be the obstruction to the structure equation of the Lie group being satisfied:
+  \[
+    \kappa(\xi, \eta) := \text{d}\omega(\xi, \eta) + [\omega(\xi), \omega(\eta)].
+  \]
+  Cartan geometries come with their own distinguished curves.
+  Much as one might expect, all of the important features are similar to the situation of a Klein geometry, albeit with the Cartan connection playing the role of the Maurer-Cartan form. 
+  \begin{figure}
+    \includegraphics[width=0.18\textwidth]{cartan.jpg}
+    %\caption*{\'{E}lie Cartan}
+  \end{figure}
 \end{frame}
 
 \begin{frame}{Conformal geometry}
