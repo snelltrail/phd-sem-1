@@ -1,0 +1,543 @@
+\documentclass[handout]{beamer}
+\usetheme{Madrid}
+\mode<presentation>{}
+
+\usepackage{amsfonts, amsmath, amssymb, bm}
+\usepackage{caption}
+\usepackage{tikz-cd}
+\usepackage{cite}
+\renewcommand{\r}{\mathbb{R}}
+\newcommand{\ra}{\rightarrow}
+\renewcommand{\hat}{\widehat}
+\newcommand{\tract}{\mathcal{T}}
+\newcommand{\confmet}{\bm{g}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\EE}{\mathbb{E}}
+\renewcommand{\phi}{\varphi}
+
+\include{daniel_preamble.tex}
+
+\title[What is geometry?]{What is geometry?}
+\author[Daniel Snell]{Daniel Snell}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\section{Introduction}
+
+\begin{frame}{Overview}
+
+  The main goal of this talk is to explain the following diagram, from Richard Sharpe's book \cite{Sharpe}:
+
+\vspace{1em}
+\[
+\begin{tikzcd}[ampersand replacement=\&, row sep=huge, column sep=huge]
+\textnormal{Euclidean geometry} \arrow[r] \arrow[d] \& \textnormal{Riemannian geometry} \arrow[d]\\
+\textnormal{Homogeneous spaces} \arrow[r] \& \textnormal{Cartan geometry}
+\end{tikzcd}
+\]
+
+\vspace{1em}
+
+This diagram compactly summarizes some of the most important and fundamental ideas from the last two centuries of (differential) geometry.
+
+It mentions two different generalizations of Euclidean geometry, and shows that Cartan geometry simultaneously encompasses both of these.
+
+\end{frame}
+
+\begin{frame}{(Pre-)History}
+
+\end{frame}
+
+\begin{frame}{Manifolds}
+  Manifolds are the fundamental objects of study for differential geometry. 
+  A manifold makes precise the notion of a space which is locally Euclidean.
+  \begin{definition}[Smooth manifold]
+    A \emph{smooth manifold of dimension n} constists of a topological space $M$ together with a collection of pairs $(U_\alpha, \phi_\alpha)$, where the $U_\alpha$ are open sets which cover $M$, and for each $\alpha$, the map
+    \[
+      \phi_\alpha : U_\alpha \to \RR^n
+    \]
+    is a diffeomorphism of $U_\alpha$ onto a open subset of $\RR^n$.
+  \end{definition}
+\end{frame}
+
+\begin{frame}{Manifolds (cont.)}
+
+    \begin{definition}[Smooth manifold (cont.)]
+    The \emph{transition functions} of the collection $\{U_\alpha\}$ are the functions 
+    \[
+      \phi_{\alpha \beta} := \phi_\beta \circ \phi^{-1} _\alpha |_{\phi_{\alpha}(U_\alpha \cap U_\beta)} : \phi_\alpha(U_\alpha \cap U_\beta) \to \phi_\beta(U_\alpha \cap U_\beta)
+    \]
+    The manifold is said to be \emph{smoot} if all its transition maps are smooth (namely $C^\infty$).
+  \end{definition}
+  \begin{center}
+    \includegraphics[width=0.4\textwidth]{charts.png}
+  \end{center}
+\end{frame}
+
+%TODO more prelim stuff; tangent bundle? 
+
+\begin{frame}{Euclidean geometry}
+  Euclidean geometry is familiar to most of us! 
+
+  Its namesake is Euclid, who first established an axiomatic foundation for geometry with his textbook \emph{Elements}.
+
+  In modern mathematics, Euclidean geometry is usually taken to mean $\RR^n$ together with its inner product structure $\langle \cdot , \cdot \rangle$ (the dot product).
+  In modern language, the dot product on $\RR^n$ is a smooth symmetric, covariant 2-tensor field, i.e. it associates to each point $x\in M$ a symmetric bilinear map 
+  \[
+    \langle \cdot , \cdot \rangle_x : T_xM \times T_xM \to \RR.
+  \]
+
+  There are other ways that this 
+\end{frame}
+
+%TODO slide about Riemann? 
+\begin{frame}{Riemannian geometry}
+  \begin{columns}
+    \begin{column}{0.7 \textwidth}
+      Riemannian geometry seeks to generalize the inner product structure of Euclidean geometry.
+    \end{column}
+    \begin{column}{0.3 \textwidth}
+      \begin{center}
+        \includegraphics[width=0.5\textwidth]{riemann.jpeg}
+      \end{center}
+    \end{column}
+  \end{columns}
+    \begin{definition}[Riemannian manifold]
+      A Riemannian manifold is a pair $(M,g)$, where 
+      \begin{itemize}
+        \item $M$ is a smooth manifold, and 
+        \item $g\in \Gamma(S^2 T^* M)$, called the \emph{(Riemannian) metric}, which is everywhere nondegenerate.
+      \end{itemize}
+    \end{definition}
+  Associated to such a structure is a unique connection, termed the Levi-Civita connection, that is uniquely charaterized by the two properties
+  \begin{itemize}
+    \item $\nabla g = 0$, and 
+    \item $\nabla_X Y - \nabla_Y X = [X,Y]$ for all vector fields $X$ and $Y$.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Riemannian geometry 2}
+  The connection induced by the metric allows one to formulate PDEs and perform analysis on the manifold in a manner similar to Euclidean space.
+
+  The metric also allows one to define lengths of curves:
+  Given a curve $\gamma : [0,1] \to M$, one defines the length of $\gamma$ via a familiar formula 
+  \[
+    \ell(\gamma) := \int_0 ^1 \sqrt{g(\gamma'(t), \gamma'(t))} \mathrm{d} t.
+  \]
+  Given two points $a,b \in M$, it is natural to ask for a curve $\gamma$ with $\gamma(0)=a$, $\gamma(1)=b$ with $\ell(\gamma)$ minimal.
+  Such a curve is called a \emph{geodesic}.
+
+  The length-minimization condition above is equivalent to the second order differential equation 
+  \[
+    \nabla_{\dot{\gamma}} \dot{\gamma} = 0,
+  \]
+  where the connection $\nabla$ which appears in the equation is the Levi-Civita connection of the Riemannian metric.
+\end{frame}
+
+\begin{frame}{Euclidean space revisited}
+  While Euclidean space possesses its inner product structure, this is far from the only feature one might seek to generalize.
+
+  Let $G:=\mathrm{Euc}(n)$ be the \emph{Euclidean group}: the group of isometries of $n$-dimensional Euclidean space $\EE^n$.
+
+  It is well-known that such isometries are either translations, rotations, or reflections.
+
+  Let $H$ be the stabilizer of a point in Euclidean space. 
+
+  Then $G/H \cong \EE^n$. (In fact, the Euclidean group $\mathrm{Euc}(n)$ is a semidirect product of $\mathrm{O}(n)$ with the group of translations, which is in turn isomorphic to $\RR^n$.)
+  
+  Of note here is that $G$ is in fact a Lie group, and $H\subset G$ is a Lie subgroup.
+
+  This is the description of Euclidean space that a Klein geometry seeks to generalize.
+\end{frame}
+
+\begin{frame}{Klein geometry}
+  The following definition is heavily inspired by the observations of the previous slide.
+  \begin{definition}[Klein geometry]
+    Let $G$ be a Lie group with $H \subset G$ a Lie subgroup. 
+    The pair $(G,H)$ is called a \emph{Klein geometry}.
+    In this context, the coset space $M:=G/H$ is a smooth manifold of dimension $\dim G - \dim H$.
+  \end{definition}
+  The group $G$ acts naturally on the left via 
+  \[
+    g \cdot (aH) := (ga)H.
+  \]
+\end{frame}
+%TODO bundle definition
+%TODO distinguished curves
+%TODO why Klein geometry is not enough e.g. of Riemannian manifold that is not Klein?
+
+\begin{frame}{The bundle description of a Klein geometry}
+  Klein geometries may be equivalently defined via the language of principal bundles. 
+  This will be relevant when we talk about Cartan geometries shortly. 
+
+  Given a Lie group $G$ and a closed subgroup $H$, there is a natural right action of $H$ on $G$, given simply by right multiplication. 
+  The orbits under this action are the left cosets of $H$ in $G$. 
+  Therefore $G$ has the structure of a smooth principal $H$-bundle over the space $M:=G/H$
+  \[
+    \begin{tikzcd}[ampersand replacement=\&]
+      G  \arrow[d] \& H \arrow[l]\\
+      M \& {} \\
+    \end{tikzcd}
+  \]
+  Additionally, the Klein geometry comes equipped with the Maurer-Cartan form $\omega : G \to \mathfrak{g}$.
+  This trivializes the tangent bundle of the Lie group $G$, i.e. 
+  \[
+    \omega : TG \overset{\cong}{\longrightarrow} G \times \mathfrak{g}.
+  \]
+\end{frame}
+
+\begin{frame}{Distinguished curves of Klein geometries}
+  We have already seen the distinguished curves of a Riemannian manifold and how they are defined in terms of the metric.
+  Klein geometries also possess distinguished curves. 
+  Much as with Riemannian geometry, there is a unique distinguished curve $\gamma$ such that 
+  \begin{itemize}
+    \item $\gamma(0) = g$, and 
+    \item $\gamma'(0) = V$,
+  \end{itemize}
+  for any $g\in G$ and $V \in T_x G$.
+
+  By acting with $g^{-1}$ may assume that the $g$ above is simply the identity element $e$.
+
+  Then we can even explicitly write down a formula for the curve, using the exponential map:
+  \[
+    \gamma : \RR \to G, \gamma(t) := \exp(tX).
+  \]
+\end{frame}
+
+\begin{frame}{Conformal geometry}
+
+  \begin{definition}[Conformal manifold]
+    A conformal manifold is a pair \( (M, \bm{c}) \), where \( \bm{c} \) is an equivalence class of Riemannian metrics, with \( \hat{g} \sim g \) if, and only if, \( \hat{g} = \Omega^2 g \) for some positive function \( \Omega \in C^\infty (M) \).
+  \end{definition}
+
+  \begin{columns}
+    \begin{column}{0.6\textwidth}
+      \pause
+      Conformal manifolds are examples of \emph{Cartan geometries}.
+      \vspace{1em}
+
+      \pause
+      They are even examples of 
+      a particular subclass of Cartan geometries called \emph{parabolic geometries}, where \( G \) is semisimple, and \( P \subset G \) is a \emph{parabolic} subgroup.
+    \end{column}
+      \begin{column}{0.4\textwidth}
+        \hspace{1.5em}
+        \begin{figure}
+          \includegraphics[width=0.65\textwidth]{cartan.jpg}
+          \caption*{\'{E}lie Cartan}
+        \end{figure}
+      \end{column}
+  \end{columns}
+
+\end{frame}
+
+\begin{frame}{History}
+
+Conformal and projective geometry have been long studied, both for their own sake and for their relations to other areas of mathematics.
+\vspace{1em}\\
+\pause
+The study of these geometries is difficult since they do not possess distinguished connections on their tangent bundles.
+\vspace{1em}\\
+\pause
+Work of Bailey, Eastwood and Gover (1994) provides an elegant solution: work on a vector bundle of slightly higher rank. 
+
+These are the \emph{tractor bundles}.
+
+\end{frame}
+
+\begin{frame}{Tractor bundles}
+  \begin{definition}[Conformal tractor bundle]
+    Let \( (M, \bm{c}) \) be a conformal manifold.
+    The (standard) \emph{conformal tractor bundle}, \( \mathcal{T} \), fits into an exact sequence
+    \pause
+    \[
+      0 \to \mathcal{E}[-1] \overset{X}{\to} \mathcal{T} \to J^1 \mathcal{E}[1] \to 0.
+    \]
+    \pause
+    The invariant bundle map \( X \), called the \emph{canonical} or \emph{position} tractor will be of central importance to our main results.
+    Under a choice of metric \( g \in \bm{c} \), one has an isomorphism 
+    \[
+      \mathcal{T} \overset{g}{\cong} \mathcal{E}[1] \oplus \mathcal{E}^a [1] \oplus \mathcal{E}[-1].
+    \]
+  \end{definition}
+
+\end{frame}
+
+\begin{frame}{Tractor bundles (cont.)}
+  The conformal tractor bundle also comes equipped with an invariant connection and an invariant metric which is compatible with this connection.
+  \pause
+  \begin{Theorem}[Bailey, Eastwood, Gover 1994]
+    Let \( (M, \bm{c}) \) be a conformal manifold with tractor bundle \( \mathcal{T} \).
+    Then there is a conformally invariant connection on \( \mathcal{T} \), defined in a choice of metric by
+    \pause
+    \[
+      \nabla_a^{\mathcal{T}}
+      \begin{pmatrix}
+        \sigma \\ 
+        \mu_b \\ 
+        \rho
+      \end{pmatrix}
+      \overset{g}{:= }
+      \begin{pmatrix}
+        \nabla_a\sigma - \mu_a \\ 
+        \nabla_a\mu_b + \confmet_{ab} \rho + \mathsf{P}_{ab} \sigma \\ 
+        \nabla_a \rho - \mathsf{P}_{ab} \mu^b
+      \end{pmatrix}.
+    \]
+    \pause
+    The invariant metric can be written as 
+    \[
+      h^{AB} = 
+      \begin{pmatrix}
+      0 & 0 & 1 \\
+      0 & \confmet_{ab} & 0\\
+      1 & 0 & 0\\
+      \end{pmatrix}.
+    \]
+  \end{Theorem}
+\end{frame}
+
+\begin{frame}{Distinguished curves}
+  Parabolic geometries also possess a notion of distinguished curves.
+  We will focus on two cases: \\
+  \begin{center}
+    \begin{tabular}{ | c | c | }
+      \hline
+      Geometry & Distinguished curves \\ \hline
+      Projective & (Usual) geodesics \\ \hline 
+      Conformal & Null geodesics and conformal circles \\
+      \hline
+    \end{tabular}
+  \end{center}
+  \pause 
+  For these different types of curves, we get nice characterizations of the distinguished curves using tractor calculus methods.
+\end{frame}
+
+\section{Main theorems}
+
+\begin{frame}{Main theorem for projective geometry}
+  \begin{Theorem}[Gover, S., Taghavi-Chabert 2018]
+    Let \( (M,\bm{p}) \) be a projective manifold, and \( \gamma \) a curve in \(
+    M \).
+    Then \( \gamma \) is an unparametrised oriented geodesic if, and only if,
+    along \( \gamma \) there is a non-zero parallel 2-tractor \( \Sigma^{A B}\in
+    \Gamma\left( \mathcal{E}^{ [A B] }\right) \) such that
+    \[
+      X \wedge \Sigma = 0.
+    \]
+  \end{Theorem}
+  \pause
+  The theorem consists of two conditions:\\
+  \begin{enumerate}
+    \pause
+    \item \( X \wedge \Sigma = 0\) is a kind of incidence relation, and
+    \pause
+    \item the condition \( \nabla_{\dot{\gamma}} \Sigma = 0 \) exactly recovers the geodesic equation.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Main theorem for conformal geometry}
+  The geodesic equation is not conformally invariant; instead one considers the
+  \emph{conformal circles}.
+  These admit a similar characterisation to geodesics in projective geometry.
+  \pause
+  \begin{Theorem}[Gover, S., Taghavi-Chabert 2018]
+    Let \( (M,\bm{c}) \) be a conformal manifold.
+    A nowhere-null curve \( \gamma \) is an oriented conformal circle if, and
+    only if, along \( \gamma \) there is a non-zero parallel 3-tractor \(
+    \Sigma^{ABC} \in \Gamma(\mathcal{E}^{[ABC]}) \) such that
+    \[
+      X \wedge \Sigma = 0.
+    \]
+  \end{Theorem}
+  \pause
+  Again the result consists of an incidence relation and an equation exactly
+  equivalent to the appropriate distinguished curve equation.
+  \pause
+  \hspace{1em}\\
+  NB: The theorem for null geodesics is almost identical to the projective geometry version.
+\end{frame}
+
+%Emmy Noether slide
+\section{Conserved quantities in projective and conformal geometry}
+
+\begin{frame}{Application: conserved quantities}
+  One of the most important results about geodesics of a Riemannian manifold is
+  the following classical theorem.
+  \pause
+  \begin{Theorem}
+    Let \( (M,g) \) be a Riemannian manifold.
+    Let \( k \) a Killing vector field for the metric \( g \), and \( \gamma \)
+    a geodesic for the Levi-Civita connection \( \nabla \).
+    Then the scalar-valued function \( g(\dot{\gamma},k) \) is conserved along
+    \( \gamma \), i.e.
+    \[
+      \nabla_{\dot{\gamma}} g(\dot{\gamma}, k) = 0.
+    \]
+  \end{Theorem}
+  \pause
+  Conserved quantities are useful in numerous applications, including
+  physics, superintegrable systems, and separation of variables in the study of
+  differential equations.
+
+  It is therefore natural to ask about quantities which are conserved on a conformal or projective manifold. 
+\end{frame}
+
+\begin{frame}{Towards conserved quantities}
+  \begin{block}{A na\"{i}ve approach}
+    We take inspiration from the classical result. 
+      This required two things:
+      \begin{itemize}
+        \pause
+        \item a distinguished curve, and
+        \pause
+        \item a \emph{symmetry} of the geometry.
+      \end{itemize}
+      \pause
+      We have already a tractor which describes the distinguished curves. Therefore we would like to find a section \( S \) of some tractor bundle such that e.g. \( \nabla_{\dot{\gamma}} \left(\Sigma \cdot S \right) = 0 \). 
+      In light of our earlier theorems, this is equivalent to the simpler
+      \[
+        \Sigma \cdot \nabla_{\dot{\gamma}} S = 0.
+      \]
+      This tractor \( S \) should ideally be a solution to some geometric PDE on the manifold...
+  \end{block}
+\end{frame}
+
+\begin{frame}{A minor digression: elements of BGG theory}
+  Let \( \mathcal{V} \) be a tractor bundle.
+  Then one may form the \emph{twisted de Rham} sequence.
+  We shall mainly be interested in the first square:
+  \pause
+  \[
+    \begin{tikzcd}[ampersand replacement=\&, row sep=huge, column sep=huge]
+      \mathcal{V} \arrow[r, "\nabla^{\mathcal{T}}"] \arrow[d, "\Pi_0"] \& T^*M \otimes \mathcal{V} \arrow[l, "\hspace{-2em}\partial^*", near start, bend left=20] \arrow[d, "\Pi_1"]\\
+      \mathcal{H}_0 \arrow[r, "\Theta"] \arrow[u, dashed, "L", bend left=50] \& \mathcal{H}_1
+    \end{tikzcd}
+  \]
+  where \( \Theta := \Pi_1 \circ \nabla^{\mathcal{T}} \circ L \).
+  \pause
+  \begin{block}{}
+  One may ask for solutions to the equation \( \Theta \sigma = 0 \) for various tractor bundles \( \mathcal{V} \).
+  This class of \emph{BGG equations} turns out to include a large number of interesting geometric PDEs, for example: 
+  \begin{itemize}
+    \item the Killing (form/tensor) Equation, 
+    \item the Metrisability Equation,
+    \item the Almost-Einstein Equation...
+  \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Putting it all together}
+  \hspace{1em}
+  \begin{block}{Key idea}
+    The splitting operator \( L \) allows us to convert solutions to geometrically interesting PDEs into sections of certain tractor bundles.
+    We therefore might try replacing \( S \) in the above with \( L(\sigma) \), where \( \sigma \) solves some BGG equation.
+  \end{block}
+  \hspace{1em}
+  \pause
+
+  The requirement that 
+    \[
+      \Sigma \cdot \nabla_{\dot{\gamma}} L(\sigma) = 0
+    \]
+    is not too onerous, as demonstrated by the existence of \emph{normal solutions} which one has in e.g. the flat models.
+\end{frame}
+
+\begin{frame}{A conformal example}
+  \begin{Theorem}
+    Let \( (M,\bm{c}) \) be a conformal manifold.
+    Suppose \( \gamma \) is a conformal circle, and \( k_{ab} \) is a conformal
+    Killing 2-form.
+    The form \( k_{ab} \) corresponds to a cotractor 3-form \( \mathbb{K}_{ABC}
+    \).
+    Then the scalar \( \Sigma^{ABC} \mathbb{K}_{ABC} \) is conserved along \(
+    \gamma \).
+    In a scale, one has
+    \[
+      \Sigma^{ABC} \mathbb{K}_{ABC} = \mathbf{u}^a \mathbf{a}^b k_{ab} \mp \frac{1}{n-1} \mathbf{u}^a \nabla^c k_{ca}.
+    \]
+  \end{Theorem}
+  \pause
+  \begin{proof}[Proof (sketch)]
+    % Applying the Leibniz rule for the tractor connection, we calculate
+    % \pause
+    % \begin{align*}
+    %   u^a \nabla^\mathcal{T}_a \left( \Sigma^{ABC} \mathbb{K}_{ABC} \right) &=
+    %   \left( u^a \nabla^\mathcal{T}_a \Sigma^{ABC} \right) \mathbb{K}_{ABC} +
+    %   \Sigma^{ABC} u^a \nabla^\mathcal{T}_a \mathbb{K}_{ABC}\\
+    %   &= \Sigma^{ABC} u^a \nabla^\mathcal{T}_a \mathbb{K}_{ABC},
+    % \end{align*}
+    % since according to our main result, \( \Sigma^{ABC} \) has derivative zero
+    % along \( \gamma \).
+    % \pause
+    % Using explicit formulae for \( \Sigma \) and \( \mathbb{K} \), one sees
+    % that this remaining term also vanishes.
+    Two different ways:
+    \begin{itemize}
+      \item use the explicit formula for the quantity given above;
+      \item use techniques from BGG theory, work of \v{C}ap, Hammerl, Sou\v{c}ek, Somberg; and Gover, \v{S}ilhan...
+    \end{itemize}
+  \end{proof}
+\end{frame}
+
+\begin{frame}{More examples}
+  During our work, we calculated explicitly several other examples, using
+  solutions to different BGG equations.\\
+  \begin{itemize}
+    \pause
+    \item In the conformal case:
+      \[
+      S^{AB} H_{AB},
+      \]
+      where \( S^{AB} \) is constructed from \( \Sigma^{ABC} \) and
+      \( H_{AB} \) is the tractor corresponding to the solution to a certain
+      conformally-invariant third-order PDE.
+    \pause
+    \item And in the projective case:
+      \[
+        \Sigma^{A_1 B_1} \Sigma^{A_2 B_2} H_{A_1
+        A_2} H_{B_1 B_2},
+      \]
+      where \( H_{A B} \) corresponds to the projective version of the
+      aforementioned third-order equation.\\
+      \pause
+    \item Finally, in projective geometry:
+      \[
+        \Sigma^{A B} \mathbb{K}_{A B},
+      \]
+      where \( \mathbb{K}_{A B} \) comes from a Killing vector field recovers the well-known conserved quantity.
+  \end{itemize}
+\end{frame}
+
+\section{Ongoing work}
+
+\begin{frame}{Ongoing work}
+  \begin{block}{}
+    We are currently working on developing characterizations of the distinguished curves from some other parabolic geometries, as well as fitting our results into the existing theory of distinguished curves in parabolic geometries. \\
+    \hspace{1em}\\
+    \pause
+    Ultimately this machinery along with the conserved quantities it produces should have applications to integrable systems and separability of PDE.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Thank you}
+  \begin{block}{}
+  Details in \href{https://arxiv.org/abs/1806.09830}{arXiv:1806.0983}\\
+  \hspace{1em}\\
+  Slides: \href{https://github.com/snelltrail/austms_2018}{https://github.com/snelltrail/austms\_2018}\\
+  \hspace{1em}\\
+  Contact: \texttt{\href{mailto:daniel.snell@auckland.ac.nz}{daniel.snell@auckland.ac.nz}}
+  \end{block}
+\end{frame}
+
+\bibliography{../GST}
+\bibliographystyle{plain}
+
+\end{document}
+
+
