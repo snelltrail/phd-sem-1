@@ -31,7 +31,7 @@
 
 \begin{frame}{Overview}
 
-  The main goal of this talk is to explain the following diagram, from Richard Sharpe's book \cite{Sharpe}:
+  The main goal of this talk is to explain the following diagram, from Richard Sharpe's book \emph{Differential Geometry: Cartan's Generalization of Klein's Erlangen Program}.
 
 \vspace{1em}
 \[
@@ -49,9 +49,9 @@ It mentions two different generalizations of Euclidean geometry, and shows that 
 
 \end{frame}
 
-\begin{frame}{(Pre-)History}
-
-\end{frame}
+%\begin{frame}{(Pre-)History}
+%
+%\end{frame}
 
 \begin{frame}{Manifolds}
   Manifolds are the fundamental objects of study for differential geometry. 
@@ -121,7 +121,7 @@ It mentions two different generalizations of Euclidean geometry, and shows that 
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Riemannian geometry 2}
+\begin{frame}{Riemannian geometry (cont.)}
   The connection induced by the metric allows one to formulate PDEs and perform analysis on the manifold in a manner similar to Euclidean space.
 
   The metric also allows one to define lengths of curves:
@@ -164,9 +164,18 @@ It mentions two different generalizations of Euclidean geometry, and shows that 
     In this context, the coset space $M:=G/H$ is a smooth manifold of dimension $\dim G - \dim H$.
   \end{definition}
   The group $G$ acts naturally on the left via 
-  \[
-    g \cdot (aH) := (ga)H.
-  \]
+    \begin{columns}
+      \begin{column}{0.6\textwidth}
+      \[
+      g \cdot (aH) := (ga)H.
+    \]
+  \end{column}
+  \begin{column}{0.4\textwidth}
+    \begin{center}
+      \includegraphics[width=0.6\textwidth]{klein.jpeg}
+    \end{center}
+    \end{column}
+  \end{columns}
 \end{frame}
 %TODO bundle definition
 %TODO distinguished curves
@@ -202,7 +211,7 @@ It mentions two different generalizations of Euclidean geometry, and shows that 
   \end{itemize}
   for any $g\in G$ and $V \in T_x G$.
 
-  By acting with $g^{-1}$ may assume that the $g$ above is simply the identity element $e$.
+  Without loss of generality, we may take $g$ to be the identity element of the Lie group.
 
   Then we can even explicitly write down a formula for the curve, using the exponential map:
   \[
@@ -239,36 +248,41 @@ It mentions two different generalizations of Euclidean geometry, and shows that 
   \end{figure}
 \end{frame}
 
+\begin{frame}{Projective geometry}
+  \begin{definition}[Projective geometry]
+    A \emph{projective manifold} is a pair $(M, \bm{p})$, where $\bm{p}$ is an equivalence class of affine connections on $M$ and $\hat{\nabla} \sim \nabla$ if, and only if, $\nabla$ and $\hat{\nabla}$ have the same geodesics up to reparametrization.
+  \end{definition}
+
+  Projective manifolds are examples of Cartan geometries.
+
+  The flat model for projective geometry is the Klein geometry $(G,P)$, where
+  \begin{itemize}
+    \item $G = \text{SL}(n+1)$, and 
+    \item $P$ is the stabilizer of the ray spanned by the first basis vector.
+  \end{itemize}
+  Then $G/P = \RR \mathbb{P}^n$ with its usual projective structure.
+\end{frame}
+
 \begin{frame}{Conformal geometry}
 
   \begin{definition}[Conformal manifold]
-    A conformal manifold is a pair \( (M, \bm{c}) \), where \( \bm{c} \) is an equivalence class of Riemannian metrics, with \( \hat{g} \sim g \) if, and only if, \( \hat{g} = \Omega^2 g \) for some positive function \( \Omega \in C^\infty (M) \).
+    A \emph{conformal manifold} is a pair \( (M, \bm{c}) \), where \( \bm{c} \) is an equivalence class of Riemannian metrics, with \( \hat{g} \sim g \) if, and only if, \( \hat{g} = \Omega^2 g \) for some positive function \( \Omega \in C^\infty (M) \).
   \end{definition}
 
-  \begin{columns}
-    \begin{column}{0.6\textwidth}
-      \pause
-      Conformal manifolds are examples of \emph{Cartan geometries}.
+      Conformal manifolds are also examples of Cartan geometries.
       \vspace{1em}
 
-      \pause
-      They are even examples of 
-      a particular subclass of Cartan geometries called \emph{parabolic geometries}, where \( G \) is semisimple, and \( P \subset G \) is a \emph{parabolic} subgroup.
-    \end{column}
-      \begin{column}{0.4\textwidth}
-        \hspace{1.5em}
-        \begin{figure}
-          \includegraphics[width=0.65\textwidth]{cartan.jpg}
-          \caption*{\'{E}lie Cartan}
-        \end{figure}
-      \end{column}
-  \end{columns}
-
+      The flat model for conformal geometry is the Klein geometry $(G,P)$, where 
+      \begin{itemize}
+        \item $G$ is the conformal orthogonal group $\text{CO}(n+1,1)$, and 
+        \item $P$ is the stabilizer of a ray in the cone of null vectors in $\RR^{n+2}$ equipped with a signature $(n+1,1)$ symmetric bilinear form.
+      \end{itemize}
+      Then $G/P = \mathbb{S}^n$ equipped with conformal structure induced by the round metric.
 \end{frame}
 
 \begin{frame}{History}
 
-Conformal and projective geometry have been long studied, both for their own sake and for their relations to other areas of mathematics.
+Projective and conformal geometry have been long studied, both for their own sake and for their relations to other areas of mathematics.
 \vspace{1em}\\
 \pause
 The study of these geometries is difficult since they do not possess distinguished connections on their tangent bundles.
@@ -544,29 +558,46 @@ These are the \emph{tractor bundles}.
   \end{itemize}
 \end{frame}
 
-\section{Ongoing work}
+\begin{frame}{Returning to Riemannian geometry}
+    A Riemannian manifold may be viewed as a conformal manifold equipped with a particular choice of metric from the conformal class. 
+    Such a choice is, equivalently, a section $\sigma \in \mathcal{E}_{>0}[1]$.
 
-\begin{frame}{Ongoing work}
-  \begin{block}{}
-    We are currently working on developing characterizations of the distinguished curves from some other parabolic geometries, as well as fitting our results into the existing theory of distinguished curves in parabolic geometries. \\
-    \hspace{1em}\\
-    \pause
-    Ultimately this machinery along with the conserved quantities it produces should have applications to integrable systems and separability of PDE.
-  \end{block}
+    Our tractor machinery can also be used to characterize the ordinary geodesics of Riemannian geometry.
+    The 3-tractor $\Sigma$ appearing above can be formed for any non-null curve $\gamma$ on a conformal manifold.
+
+    We then have the following statement.
+
+    \begin{theorem}
+      Let $(M,g)$ be a Riemannian manifold. 
+      Then $\gamma$ is a geodesic of $M$ if, and only if, $\gamma$ is a conformal circle for the conformal structure $[g]$, and $I\wedge \Sigma = 0$, where $I = D\sigma$.
+    \end{theorem}
+
+    This has interesting applications to compactifications of Riemannian manifolds, and in the case when the manifold $(M,g)$ is \emph{Einstein}, one recovers the known statement that the geodeics of Einstein manifolds are conformal circles.
 \end{frame}
 
-\begin{frame}{Thank you}
-  \begin{block}{}
-  Details in \href{https://arxiv.org/abs/1806.09830}{arXiv:1806.0983}\\
-  \hspace{1em}\\
-  Slides: \href{https://github.com/snelltrail/austms_2018}{https://github.com/snelltrail/austms\_2018}\\
-  \hspace{1em}\\
-  Contact: \texttt{\href{mailto:daniel.snell@auckland.ac.nz}{daniel.snell@auckland.ac.nz}}
-  \end{block}
-\end{frame}
+%\section{Ongoing work}
+%
+%\begin{frame}{Ongoing work}
+%  \begin{block}{}
+%    We are currently working on developing characterizations of the distinguished curves from some other parabolic geometries, as well as fitting our results into the existing theory of distinguished curves in parabolic geometries. \\
+%    \hspace{1em}\\
+%    \pause
+%    Ultimately this machinery along with the conserved quantities it produces should have applications to integrable systems and separability of PDE.
+%  \end{block}
+%\end{frame}
 
-\bibliography{../GST}
-\bibliographystyle{plain}
+%\begin{frame}{Thank you}
+%  \begin{block}{}
+%  Details in \href{https://arxiv.org/abs/1806.09830}{arXiv:1806.0983}\\
+%  \hspace{1em}\\
+%  Slides: \href{https://github.com/snelltrail/austms_2018}{https://github.com/snelltrail/austms\_2018}\\
+%  \hspace{1em}\\
+%  Contact: \texttt{\href{mailto:daniel.snell@auckland.ac.nz}{daniel.snell@auckland.ac.nz}}
+%  \end{block}
+%\end{frame}
+
+%\bibliography{../GST}
+%\bibliographystyle{plain}
 
 \end{document}
 
